@@ -18,8 +18,10 @@ package com.jjoe64.graphview.series;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.support.v4.view.ViewCompat;
 import android.view.animation.AccelerateInterpolator;
 
@@ -78,6 +80,8 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
          * @see #drawBackground
          */
         private int backgroundColor = Color.argb(100, 172, 218, 255);
+
+        private int[] backgroundDrawableColors = null;
     }
 
     /**
@@ -220,7 +224,12 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
         // draw data
         mPaint.setStrokeWidth(mStyles.thickness);
         mPaint.setColor(getColor());
-        mPaintBackground.setColor(mStyles.backgroundColor);
+        if (mStyles.backgroundDrawableColors != null) {
+            mPaintBackground.setShader(new LinearGradient(0,0,0,40,mStyles.backgroundDrawableColors,null, Shader.TileMode.MIRROR));
+        } else {
+            mPaintBackground.setColor(mStyles.backgroundColor);
+        }
+
 
         Paint paint;
         if (mCustomPaint != null) {
@@ -614,6 +623,15 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
      */
     public void setBackgroundColor(int backgroundColor) {
         mStyles.backgroundColor = backgroundColor;
+    }
+
+    public int[] getBackgroundGradient() {
+        return mStyles.backgroundDrawableColors;
+    }
+
+
+    public void setBackgroundGradient(int[] colors) {
+        mStyles.backgroundDrawableColors = colors;
     }
 
     /**
