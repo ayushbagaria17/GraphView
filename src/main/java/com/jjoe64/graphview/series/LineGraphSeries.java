@@ -225,7 +225,7 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
         mPaint.setStrokeWidth(mStyles.thickness);
         mPaint.setColor(getColor());
         if (mStyles.backgroundDrawableColors != null) {
-            mPaintBackground.setShader(new LinearGradient(0,0,0,40,mStyles.backgroundDrawableColors,null, Shader.TileMode.MIRROR));
+            mPaintBackground.setShader(new LinearGradient(0,0,(float) maxX,(float) maxY,mStyles.backgroundDrawableColors,null, Shader.TileMode.MIRROR));
         } else {
             mPaintBackground.setColor(mStyles.backgroundColor);
         }
